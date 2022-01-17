@@ -3,7 +3,7 @@ import axios from 'axios'
 
 function List() {
     const[datos, setDatos]= useState([]); 
-    const[first_name, setFirst_name]= useState("");
+    const[first_name, setFirst_Name]= useState("");
     const[last_name,setLast_Name]= useState("");
     const[birthday, setBirthday]= useState("");
     const[email, setEmail]= useState("");
@@ -45,12 +45,12 @@ function List() {
            }
            const activarModificasion =async(id)=>{
                const respuesta=  await axios.get(`https://users-crud1.herokuapp.com/users/${id}`)
-               console.log(respuesta)
-               first_name(respuesta.data.first_name)
-               last_name(respuesta.data.last_name)
-                birthday(respuesta.data.birthday)
-                password(respuesta.data.password)
-                email (respuesta.data.email)
+               //console.log(respuesta)
+              setFirst_Name(respuesta.data.first_name)
+              setLast_Name(respuesta.data.last_name)
+                setBirthday(respuesta.data.birthday)
+                setPassword(respuesta.data.password)
+                setEmail (respuesta.data.email)
  
 
              setValidacionModificar(true)
@@ -67,15 +67,17 @@ function List() {
                  password,
                  email 
                })
+               cargarDatos()
+               setValidacionModificar(false)
            }
 
     return (
 
 
-        <div className='container'>
+        <div>
             <h1 className='text-center'>CRUD  D USUARIOS</h1>
             <div className='row'>
-                 <div className='col-8'>
+                 <div >
                      <h3 className='text-center'>Lista de usuarios</h3>
                       <table className='table table-light'>
                                 <thead>
@@ -115,7 +117,7 @@ function List() {
                       <form>
                           <div className='mb-3'>
                               <label className='form-label'>Nombre</label>
-                              <input type='text'className='form-control'onChange={(e)=>setFirst_name(e.target.value)}value={first_name}/>
+                              <input type='text'className='form-control'onChange={(e)=>setFirst_Name(e.target.value)}value={first_name}/>
                           </div>
                           <div className='mb-3'>
                               <label className='form-label'>Apellido</label>
@@ -127,11 +129,11 @@ function List() {
                           </div> 
                           <div className='mb-3'>
                               <label className='form-label'>Correo</label>
-                              <input type='email'className='form-control'Change={(e)=>setEmail(e.target.value)}value={email}/>
+                              <input type='email'className='form-control'onChange={(e)=>setEmail(e.target.value)}value={email}/>
                           </div>
                           <div className='mb-3'>
                               <label className='form-label'>Password</label>
-                              <input type='password'className='form-control'onChange={(e)=>setPassword(e.target.value)}value={password}/>
+                              <input type='password'className='form-control'onChange={(e)=>setPassword(e.target.value)}value={"password"}/>
                           </div>
                             {validacionModificar ? (
                             <button className='btn btn-warning' onClick={(e)=>modificarUsuario(e)}>Modificar</button>
